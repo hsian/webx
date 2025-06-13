@@ -1,0 +1,23 @@
+{
+  "typescript": {
+    "quoteStyle": "preferSingle",
+    "semiColons": "asi",       
+    "indentWidth": 4,           
+    "lineWidth": 100       
+  },
+  "json": {
+    "indentWidth": 2
+  },
+  "includes": [
+    "lib/**/*.{js,ts,vue}",
+    "src/**/*.{js,ts,vue}"
+  ],
+  "excludes": [
+    "**/node_modules",
+    "**/*-lock.json"
+  ],
+  "plugins": [
+    "https://plugins.dprint.dev/typescript-0.95.6.wasm",
+    "https://plugins.dprint.dev/json-0.20.0.wasm"
+  ]
+}
