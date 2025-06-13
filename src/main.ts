@@ -1,7 +1,7 @@
 import { useCookies, useRequest } from '../'
 // import { useApi } from '../';
 
-const request = useRequest();
+const request = useRequest()
 
 request.setBaseUrl('https://www.aa.com/')
 
