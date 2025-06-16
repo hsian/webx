@@ -1,3 +1,3 @@
 export default {
-    userById: 'GET /user/xxxx',
+    userById: '/user/xxxx',
 }

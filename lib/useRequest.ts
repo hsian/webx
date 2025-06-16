@@ -1,8 +1,12 @@
-import Request, { AxiosRequestConfig } from './http/request'
+import Request, { AxiosRequestConfig, ResponseType } from './http/request'
 
 let requestInstance: Request | null = null
 
-export type { Request }
+export type { 
+    Request, 
+    ResponseType,
+    AxiosRequestConfig
+}
 
 export function useRequest(config?: AxiosRequestConfig<any> | undefined): Request {
     requestInstance = new Request(config)

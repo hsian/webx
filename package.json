@@ -23,7 +23,7 @@
     }
   },
   "scripts": {
-    "dev": "vite",
+    "dev": "npm run build && vite",
     "build": "tsc && vite build",
     "format": "dprint fmt",
     "precommit": "npm run format",

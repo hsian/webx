@@ -1,30 +1,37 @@
-import { useCookies, useRequest } from '../'
-// import { useApi } from '../';
+/// <reference types="vite/client" />
+import { useCookies, useService, useRequest } from '../lib'
+import { useApi } from '../lib/vue'; // Ensure type declarations exist for this module
 
 const request = useRequest()
 
 request.setBaseUrl('https://www.aa.com/')
 
-// const apis = useService(import.meta.glob('../src/api/**/*.js', { eager: true }))
+const apis = useService(import.meta.glob('../src/api/**/*.js', { eager: true }))
 
-// console.log(apis['subApi.user.userById']({
-//     a: 123,
-// }))
+// apis['subApi.user.userById']({
+//   a: 123,
+// }).then(() => {}).catch(err => {
+//   console.log(err)
+// })
 
 // const userApi = useApi('subApi.user.userById')
 
-// const userApi = useApi('common.login')
-
-// console.log(userApi.fetch({
+// userApi.fetch({
 //   a: 123
-// }))
+// })
+
+const loginApi = useApi('common.reset')
+
+loginApi.fetch({
+    a: 123
+})
 
 /** cookies */
-const cookies = useCookies()
+// const cookies = useCookies()
 
-cookies.setPrefix('abc')
-cookies.set('name', 'aobai')
-console.log(cookies.get('name'))
+// cookies.setPrefix('abc')
+// cookies.set('name', 'aobai')
+// console.log(cookies.get('name'))
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <div></div>

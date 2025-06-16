@@ -1,5 +1,5 @@
-import { cloneDeep } from 'lodash-es'
-import { getRequestInstance, Request } from './useRequest'
+import { cloneDeep, isPlainObject } from 'lodash-es'
+import { getRequestInstance, Request, AxiosRequestConfig } from './useRequest'
 
 type ModuleFiles = Record<string, { default: string }>
 
@@ -16,7 +16,7 @@ function readFilesContent(files: ModuleFiles): Record<string, Record<string, str
     return result
 }
 
-const serviceApis: Record<string, { method: string; url: string }> = {}
+const serviceApis: Record<string, AxiosRequestConfig> = {}
 export type ApiFunctions = { [key in keyof typeof serviceApis]: (data?: any) => Promise<any> }
 const apis: ApiFunctions = {}
 
@@ -28,21 +28,44 @@ export default function useService(files: ModuleFiles) {
         const apiGroup = serviceConfig[key]
 
         for (const apiName in apiGroup) {
+            const apiValue: string | Record<string, any> | (() => AxiosRequestConfig) = apiGroup[apiName]
             const fullName = `${key}.${apiName}`
-            const [method, url] = apiGroup[apiName].split(' ')
-            serviceApis[fullName] = { method, url }
+
+            if(typeof apiValue === 'string') {
+                const [method, url] = apiGroup[apiName].split(' ')
+                if(method && url) {
+                    serviceApis[fullName] = { method, url }
+                } else {
+                    serviceApis[fullName] = { url }
+                }
+            }
+
+            if(typeof apiValue !== 'string' && isPlainObject(apiValue)) {
+                serviceApis[fullName] = apiValue
+            }
+
+            if(typeof apiValue === 'function') {
+                const config = (apiValue as () => AxiosRequestConfig)()
+                serviceApis[fullName] = config
+            }
         }
     }
 
     for (const key in serviceApis) {
         apis[key] = function(data) {
+            const { method, url, ...props } = serviceApis[key]
+
             return request.instance({
-                method: serviceApis[key].method,
-                url: serviceApis[key].url,
-                ...(serviceApis[key].method.toLowerCase() === 'get' ? { params: data } : { data }),
+                method,
+                url,
+                ...(method?.toLowerCase() === 'post' ? { data } : { params: data }), // default get
+                ...props
             })
         }
     }
+
+    
+    console.log(apis, 123)
 
     return apis
 }
