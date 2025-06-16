@@ -1,5 +1,5 @@
 import { cloneDeep, isPlainObject } from 'lodash-es'
-import { getRequestInstance, Request, AxiosRequestConfig } from './useRequest'
+import { AxiosRequestConfig, getRequestInstance, Request } from './useRequest'
 
 type ModuleFiles = Record<string, { default: string }>
 
@@ -28,23 +28,24 @@ export default function useService(files: ModuleFiles) {
         const apiGroup = serviceConfig[key]
 
         for (const apiName in apiGroup) {
-            const apiValue: string | Record<string, any> | (() => AxiosRequestConfig) = apiGroup[apiName]
+            const apiValue: string | Record<string, any> | (() => AxiosRequestConfig) =
+                apiGroup[apiName]
             const fullName = `${key}.${apiName}`
 
-            if(typeof apiValue === 'string') {
+            if (typeof apiValue === 'string') {
                 const [method, url] = apiGroup[apiName].split(' ')
-                if(method && url) {
+                if (method && url) {
                     serviceApis[fullName] = { method, url }
                 } else {
                     serviceApis[fullName] = { url }
                 }
             }
 
-            if(typeof apiValue !== 'string' && isPlainObject(apiValue)) {
+            if (typeof apiValue !== 'string' && isPlainObject(apiValue)) {
                 serviceApis[fullName] = apiValue
             }
 
-            if(typeof apiValue === 'function') {
+            if (typeof apiValue === 'function') {
                 const config = (apiValue as () => AxiosRequestConfig)()
                 serviceApis[fullName] = config
             }
@@ -59,13 +60,10 @@ export default function useService(files: ModuleFiles) {
                 method,
                 url,
                 ...(method?.toLowerCase() === 'post' ? { data } : { params: data }), // default get
-                ...props
+                ...props,
             })
         }
     }
-
-    
-    console.log(apis, 123)
 
     return apis
 }

@@ -1,6 +1,6 @@
 /// <reference types="vite/client" />
-import { useCookies, useService, useRequest } from '../lib'
-import { useApi } from '../lib/vue'; // Ensure type declarations exist for this module
+import { useCookies, useRequest, useService } from '../lib'
+import { useApi } from '../lib/vue' // Ensure type declarations exist for this module
 
 const request = useRequest()
 
@@ -23,7 +23,7 @@ const apis = useService(import.meta.glob('../src/api/**/*.js', { eager: true }))
 const loginApi = useApi('common.reset')
 
 loginApi.fetch({
-    a: 123
+    a: 123,
 })
 
 /** cookies */
