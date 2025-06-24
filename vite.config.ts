@@ -19,12 +19,15 @@ export default defineConfig({
     },
     minify: false,
   },
+  esbuild: {
+    target: 'es2021'
+  },
   plugins: [
     dts({
       outDir: 'dist/types',
       insertTypesEntry: true,
       rollupTypes: true,
-      include: ['lib/**/*.ts'], // 只生成 lib 文件夹的类型声明
+      include: ['lib/**/*.ts'],
     }),
   ],
 });

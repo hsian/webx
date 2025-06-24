@@ -1,12 +1,13 @@
 /// <reference types="vite/client" />
 import { useCookies, useRequest, useService } from '../lib'
 import { useApi } from '../lib/vue' // Ensure type declarations exist for this module
+import '../lib/ui/input'
 
 const request = useRequest()
 
 request.setBaseUrl('https://www.aa.com/')
 
-const apis = useService(import.meta.glob('../src/api/**/*.js', { eager: true }))
+const apis = useService(import.meta.glob('./api/**/*.js', { eager: true }))
 
 // apis['subApi.user.userById']({
 //   a: 123,
@@ -20,11 +21,11 @@ const apis = useService(import.meta.glob('../src/api/**/*.js', { eager: true }))
 //   a: 123
 // })
 
-const loginApi = useApi('common.reset')
+// const loginApi = useApi('common.reset')
 
-loginApi.fetch({
-    a: 123,
-})
+// loginApi.fetch({
+//     a: 123,
+// })
 
 /** cookies */
 // const cookies = useCookies()
@@ -34,5 +35,9 @@ loginApi.fetch({
 // console.log(cookies.get('name'))
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
-  <div></div>
+  <div>
+    <ui-input placeholder="请输入密码">
+      <i slot="prefix" class="icon icon-lock">icon</i>
+    </ui-input>
+  </div>
 `
