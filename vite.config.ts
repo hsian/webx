@@ -1,6 +1,10 @@
 import { defineConfig } from 'vite'
 import dts from 'vite-plugin-dts'
+import vitePluginVue from '@vitejs/plugin-vue'
 import { resolve } from 'path'
+import { createHash } from 'node:crypto';
+
+console.log(createHash('sha256').update('abc').digest('hex'));
 
 export default defineConfig({
   build: {
@@ -23,11 +27,12 @@ export default defineConfig({
     target: 'es2021'
   },
   plugins: [
+    vitePluginVue(),
     dts({
       outDir: 'dist/types',
       insertTypesEntry: true,
       rollupTypes: true,
       include: ['lib/**/*.ts'],
-    }),
+    })
   ],
 });
