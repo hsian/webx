@@ -1,7 +1,7 @@
 // ui-form-item.ts
-import { LitElement, html, css } from 'lit';
-import { property, queryAssignedElements } from 'lit/decorators.js';
-import { vars } from '../styles/tokens.js';
+import { css, html, LitElement } from 'lit'
+import { property, queryAssignedElements } from 'lit/decorators.js'
+import { vars } from '../styles/tokens.js'
 
 export class UiFormItem extends LitElement {
   static styles = [
@@ -37,32 +37,32 @@ export class UiFormItem extends LitElement {
         font-size: 12px;
       }
     `,
-  ];
+  ]
 
   @property({ type: String })
-  accessor labelWidth: string = ''; // Default label width
+  accessor labelWidth: string = '' // Default label width
 
   @property({ type: String })
   accessor value: string = ''
 
   @property({ type: String })
-  accessor label: string = '';
+  accessor label: string = ''
 
   @property({ type: String })
-  accessor name: string = '';
+  accessor name: string = ''
 
   @property({ type: String })
-  accessor errorMessage: string = '';
+  accessor errorMessage: string = ''
 
   @property({ type: String })
-  accessor layout: 'x' | 'y' = 'x';
+  accessor layout: 'x' | 'y' = 'x'
 
   @queryAssignedElements({ slot: 'default' })
-  _slotChildren!: HTMLElement[];
+  _slotChildren!: HTMLElement[]
 
   firstUpdated() {
-    const slot = this.shadowRoot!.querySelector('slot')!;
-    this._slotChildren = slot.assignedElements({ flatten: true }) as HTMLElement[];
+    const slot = this.shadowRoot!.querySelector('slot')!
+    this._slotChildren = slot.assignedElements({ flatten: true }) as HTMLElement[]
 
     this._slotChildren.forEach(item => {
       if ('value' in item) {
@@ -70,47 +70,51 @@ export class UiFormItem extends LitElement {
       }
 
       if ('error' in item) {
-        (item as any).error = Boolean(this.errorMessage);
+        (item as any).error = Boolean(this.errorMessage)
       }
-    });
+    })
   }
 
   updated(changedProperties: Map<string | number | symbol, unknown>) {
-    super.updated(changedProperties);
+    super.updated(changedProperties)
     if (changedProperties.has('labelWidth')) {
-      const labelElement = this.shadowRoot?.querySelector('label');
+      const labelElement = this.shadowRoot?.querySelector('label')
       if (labelElement) {
-        labelElement.style.width = this.labelWidth;
+        labelElement.style.width = this.labelWidth
       }
     }
 
     this._slotChildren?.forEach(item => {
       if ('error' in item) {
-        (item as any).error = Boolean(this.errorMessage);
+        ; (item as any).error = Boolean(this.errorMessage)
       }
-    });
+
+      if (!(item.tagName.toLowerCase() === 'ui-input')) {
+        this.addEventListener('click', this._onInput)
+      }
+    })
   }
 
   connectedCallback(): void {
-    super.connectedCallback();
-    this.addEventListener('input', this._onInput);
+    super.connectedCallback()
+    this.addEventListener('input', this._onInput)
   }
 
   private _onInput(e: Event) {
-    const target = e.target as HTMLInputElement;
+    const target = e.target as HTMLInputElement
     if (this.name) {
       this.dispatchEvent(
         new CustomEvent('field-change', {
           detail: { name: this.name, value: target.value },
           bubbles: true,
           composed: true,
-        })
-      );
+        }),
+      )
     }
   }
 
   render() {
-    const layoutClass = this.layout === 'x' ? 'horizontal' : 'vertical';
+    const layoutClass = this.layout === 'x' ? 'horizontal' : 'vertical'
     return html`
       <div class="labelSlot ${layoutClass}">
         ${this.label ? html`<label>${this.label}</label>` : ''}
@@ -125,9 +129,10 @@ export class UiFormItem extends LitElement {
           ${this.errorMessage}
         </div>
       `
-      : ''}
-    `;
+        : ''
+      }
+    `
   }
 }
 
-customElements.define('ui-form-item', UiFormItem);
+customElements.define('ui-form-item', UiFormItem)

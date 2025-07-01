@@ -16,11 +16,14 @@ export const vars = css`
     --color-reversed-text: #fff;
     
     --color-background: #fff;
+    --color-background-secondary: #f4f4f4;
     --color-background-disabled: #8d8d8d;
     --color-background-notification: #edf5ff;
 
     --color-border: #8d8d8d;
+    --color-border-secondary: #e0e0e0;
     --color-border-disabled: #a6a6a6;
+    --color-shadow: #0000004d;
 
     --border-radius: 0;
 

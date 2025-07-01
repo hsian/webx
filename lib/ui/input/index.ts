@@ -4,37 +4,37 @@ import styles from './styles'
 
 @customElement('ui-input')
 export class Input extends LitElement {
-  static styles = styles
+    static styles = styles
 
-  @property({ type: String })
-  accessor value: string = ''
+    @property({ type: String })
+    accessor value: string = ''
 
-  @property({ type: String })
-  accessor placeholder: string = ''
+    @property({ type: String })
+    accessor placeholder: string = ''
 
-  @property({ type: String })
-  accessor password: string = ''
-  
-  @property({ type: Boolean })
-  accessor disabled: boolean = false
+    @property({ type: String })
+    accessor password: string = ''
 
-  @property({ type: Boolean })
-  accessor success: boolean = false
+    @property({ type: Boolean })
+    accessor disabled: boolean = false
 
-  @property({ type: Boolean })
-  accessor error: boolean = false
+    @property({ type: Boolean })
+    accessor success: boolean = false
 
-  @property({ type: String })
-  accessor size: 's' | 'm' | 'l' = 'm';
+    @property({ type: Boolean })
+    accessor error: boolean = false
 
-  handleInput(e: InputEvent) {
-    const target = e.target as HTMLInputElement
-    this.value = target.value
-    this.dispatchEvent(new CustomEvent('input-change', { detail: { value: this.value } }))
-  }
+    @property({ type: String })
+    accessor size: 's' | 'm' | 'l' = 'm'
 
-  render() {
-    return html`
+    handleInput(e: InputEvent) {
+        const target = e.target as HTMLInputElement
+        this.value = target.value
+        this.dispatchEvent(new CustomEvent('input-change', { detail: { value: this.value } }))
+    }
+
+    render() {
+        return html`
       <div class="${this.size} input-wrapper" 
       ?disabled=${this.disabled} 
       ?success=${this.success} 
@@ -50,5 +50,5 @@ export class Input extends LitElement {
         <slot name="suffix"></slot>
       </div>
     `
-  }
+    }
 }

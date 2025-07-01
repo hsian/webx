@@ -6,7 +6,7 @@
             <ui-input placeholder="请输入用户名" size="s"></ui-input>
             <p style="height: 20px;"></p>
             <ui-input placeholder="请输入密码">
-            <i slot="prefix" class="icon icon-lock" size="m">icon</i>
+                <i slot="prefix" class="icon icon-lock" size="m">icon</i>
             </ui-input>
             <p style="height: 20px;"></p>
             <ui-input disabled placeholder="Disable" value="Disable input"></ui-input>
@@ -22,6 +22,17 @@
                 </ui-form-item>
                 <ui-form-item label="密码" name="password">
                     <ui-input password placeholder="请输入密码"></ui-input>
+                </ui-form-item>
+                <ui-form-item label="性别" name="gender">
+                    <ui-select :options="[
+                        { label: '男', value: 1},
+                        { label: '女', value: 2},
+                        { label: '未知', value: 3}
+                    ]" placeholder="请输入密码"></ui-select>
+                </ui-form-item>
+                <ui-form-item label="职业" name="profession">
+                    <ui-checkbox name="profession" checked :value="1" style="margin-right: 20px;">律师</ui-checkbox>
+                    <ui-checkbox name="profession" :value="2">医生</ui-checkbox>
                 </ui-form-item>
                 <ui-form-item>
                     <ui-button size="s" @click="submit">提交</ui-button>
@@ -46,10 +57,14 @@ import '../lib/ui/input'
 import '../lib/ui/form'
 import '../lib/ui/form/form-item'
 import '../lib/ui/button'
+import '../lib/ui/select'
+import '../lib/ui/checkbox'
 
 const formData = reactive({
     username: '124123',
-    password: ''
+    password: '',
+    gender: 1,
+    profession: [1]
 });
 
 const formRules = {
@@ -60,6 +75,9 @@ const formRules = {
   password: [
     v => v.length === 0 ? '密码不能为空' : true,
     v => v.length < 6 ? '不能少于6个字符' : true
+  ],
+  gender: [
+    v => v.length === 0 ? '请选择性别' : true,
   ]
 };
 

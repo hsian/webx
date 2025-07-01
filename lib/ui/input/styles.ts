@@ -75,7 +75,13 @@ export default [
         ::slotted([slot='prefix']) {
             display: inline-flex;
             align-items: center;
-            padding-left: 10px;
+            margin-left: 10px;
+        }
+
+        ::slotted([slot='suffix']) {
+            display: inline-flex;
+            align-items: center;
+            margin-right: 10px;
         }
     `,
-];
+]

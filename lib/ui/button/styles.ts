@@ -1,5 +1,5 @@
-import { css } from 'lit';
-import { vars } from '../styles/tokens.js';
+import { css } from 'lit'
+import { vars } from '../styles/tokens.js'
 
 export default [
     vars,
@@ -48,5 +48,5 @@ export default [
             padding: 0 46px;
             font-size: 16px;
         }
-    `
+    `,
 ]
