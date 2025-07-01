@@ -12,6 +12,7 @@ export default defineConfig({
       entry: {
         index: resolve(__dirname, './lib/index.ts'),
         vue: resolve(__dirname, './lib/vue/index.ts'),
+        ui: resolve(__dirname, './lib/ui/index.ts')
       },
       fileName: (format, entryName) => `${entryName}.${format}.js`,
     },

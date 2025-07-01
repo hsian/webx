@@ -67,5 +67,5 @@ export default [
         i.open {
             transform: rotate(180deg);
         }
-    `
+    `,
 ]

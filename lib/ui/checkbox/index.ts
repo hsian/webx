@@ -1,18 +1,18 @@
-import { LitElement, html, css } from 'lit';
-import { property } from 'lit/decorators.js';
+import { css, html, LitElement } from 'lit'
+import { property } from 'lit/decorators.js'
 
 export class UiCheckbox extends LitElement {
-    @property({ type: Boolean }) 
-    accessor checked = false;
+    @property({ type: Boolean })
+    accessor checked = false
 
-    @property({ type: Boolean }) 
-    accessor disabled = false;
+    @property({ type: Boolean })
+    accessor disabled = false
 
-    @property({ type: String }) 
-    accessor value = '';
+    @property({ type: String })
+    accessor value = ''
 
-    @property({ type: String }) 
-    accessor name = '';
+    @property({ type: String })
+    accessor name = ''
 
     static styles = css`
         :host {
@@ -56,18 +56,20 @@ export class UiCheckbox extends LitElement {
             justify-content: center; 
             align-items: center;
         }
-    `;
+    `
 
     private toggleChecked() {
         if (!this.disabled) {
-            this.checked = !this.checked;
-            this.dispatchEvent(new CustomEvent('change', { 
-                detail: { 
-                    checked: this.checked, 
-                    value: this.value, 
-                    name: this.name 
-                } 
-            }));
+            this.checked = !this.checked
+            this.dispatchEvent(
+                new CustomEvent('change', {
+                    detail: {
+                        checked: this.checked,
+                        value: this.value,
+                        name: this.name,
+                    },
+                }),
+            )
         }
     }
 

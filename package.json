@@ -20,6 +20,11 @@
       "types": "./dist/types/vue.d.ts",
       "import": "./dist/vue.es.js",
       "require": "./dist/vue.cjs.js"
+    },
+    "./ui": {
+      "types": "./dist/types/ui.d.ts",
+      "import": "./dist/ui.es.js",
+      "require": "./dist/ui.cjs.js"
     }
   },
   "scripts": {
@@ -27,7 +32,8 @@
     "build": "tsc && vite build",
     "format": "dprint fmt",
     "precommit": "npm run format",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "docs": "npx vitepress dev docs"
   },
   "devDependencies": {
     "@types/js-cookie": "^3.0.6",
@@ -38,7 +44,8 @@
     "husky": "^9.1.7",
     "typescript": "~5.7.3",
     "vite": "^6.1.1",
-    "vite-plugin-dts": "^4.5.4"
+    "vite-plugin-dts": "^4.5.4",
+    "vitepress": "^1.6.3"
   },
   "dependencies": {
     "axios": "^1.9.0",
